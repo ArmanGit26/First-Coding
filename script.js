@@ -1,10 +1,10 @@
 const photos = [
-  { title: "Golden Hour", cat: "portrait", color: "linear-gradient(145deg,#8a5a3c,#d8a55c)" },
-  { title: "Mountain Ridge", cat: "landscape", color: "linear-gradient(145deg,#2b3b4a,#5c7d99)" },
-  { title: "City Lights", cat: "street", color: "linear-gradient(145deg,#1f1f26,#40405c)" },
-  { title: "Quiet Portrait", cat: "portrait", color: "linear-gradient(145deg,#4a3a3a,#a97a6b)" },
-  { title: "Misty Valley", cat: "landscape", color: "linear-gradient(145deg,#31413a,#6f9186)" },
-  { title: "Market Walk", cat: "street", color: "linear-gradient(145deg,#3a2f25,#a9895f)" },
+  { title: "Golden Hour", cat: "portrait", img: "images/golden-hour.jpg", color: "linear-gradient(145deg,#8a5a3c,#d8a55c)" },
+  { title: "Mountain Ridge", cat: "landscape", img: "images/mountain-ridge.jpg", color: "linear-gradient(145deg,#2b3b4a,#5c7d99)" },
+  { title: "City Lights", cat: "street", img: "images/city-lights.jpg", color: "linear-gradient(145deg,#1f1f26,#40405c)" },
+  { title: "Quiet Portrait", cat: "portrait", img: "images/quiet-portrait.jpg", color: "linear-gradient(145deg,#4a3a3a,#a97a6b)" },
+  { title: "Misty Valley", cat: "landscape", img: "images/misty-valley.jpg", color: "linear-gradient(145deg,#31413a,#6f9186)" },
+  { title: "Market Walk", cat: "street", img: "images/market-walk.jpg", color: "linear-gradient(145deg,#3a2f25,#a9895f)" },
 ];
 
 const grid = document.getElementById("grid");
@@ -17,7 +17,8 @@ function renderGallery(filter = "all") {
     .forEach((p) => {
       const card = document.createElement("div");
       card.className = "card";
-      card.style.backgroundImage = p.color;
+      // photo on top, gradient behind it as a fallback if the image is missing
+      card.style.backgroundImage = `url("${p.img}"), ${p.color}`;
       card.innerHTML = `<div class="info"><h4>${p.title}</h4><span>${p.cat}</span></div>`;
       grid.appendChild(card);
     });
