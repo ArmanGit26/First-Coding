@@ -33,3 +33,51 @@ filters.forEach((btn) => {
 });
 
 renderGallery();
+
+/* ---------- Sidebar navigation ---------- */
+const navItems = document.querySelectorAll("nav li");
+const sections = ["home", "gallery", "about", "services", "contact"].map((id) =>
+  document.getElementById(id)
+);
+
+function setActive(id) {
+  navItems.forEach((li) => {
+    const link = li.querySelector("a");
+    li.classList.toggle("active", link.getAttribute("href") === "#" + id);
+  });
+}
+
+// highlight the menu item when the user clicks it
+navItems.forEach((li) => {
+  li.querySelector("a").addEventListener("click", () => {
+    setActive(li.querySelector("a").getAttribute("href").slice(1));
+  });
+});
+
+// highlight the menu item of the section currently on screen
+function updateOnScroll() {
+  let current = "home";
+  const atBottom =
+    window.innerHeight + window.scrollY >= document.body.scrollHeight - 4;
+  if (atBottom) {
+    current = "contact";
+  } else {
+    sections.forEach((sec) => {
+      if (sec.getBoundingClientRect().top <= window.innerHeight * 0.4) {
+        current = sec.id;
+      }
+    });
+  }
+  setActive(current);
+}
+window.addEventListener("scroll", updateOnScroll);
+updateOnScroll();
+
+// hero buttons scroll to their section
+document.querySelectorAll("[data-scroll]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document
+      .getElementById(btn.dataset.scroll)
+      .scrollIntoView({ behavior: "smooth" });
+  });
+});
